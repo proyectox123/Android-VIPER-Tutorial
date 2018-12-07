@@ -3,16 +3,22 @@ package com.raywenderlich.chuckyfacts.presenter
 import com.github.kittinunf.result.Result
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.raywenderlich.chuckyfacts.BaseApplication
 import com.raywenderlich.chuckyfacts.MainContract
 import com.raywenderlich.chuckyfacts.entity.Joke
 import com.raywenderlich.chuckyfacts.interactor.MainInteractor
+import com.raywenderlich.chuckyfacts.view.activities.DetailActivity
+import ru.terrakok.cicerone.Router
 
 class MainPresenter(private var view: MainContract.View?):
         MainContract.Presenter, MainContract.InteractorOutput {   // 1
 
+    private val router: Router? by lazy { BaseApplication.INSTANCE.cicerone.router }
+
     private var interactor: MainContract.Interactor? = MainInteractor()   // 2
 
     override fun listItemClicked(joke: Joke?) {   // 3
+        router?.navigateTo(DetailActivity.TAG, joke)
     }
 
     override fun onViewCreated() {   // 4
