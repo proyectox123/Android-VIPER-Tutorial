@@ -43,22 +43,22 @@ class MainActivityInstrumentedTest {
   val activityTestRule = ActivityTestRule<MainActivity>(MainActivity::class.java)
 
   @Test
-  fun testRecyclerViewIsPopulated() {
+  fun testRecyclerViewIsPopulated() {  // 1
 
     waitForSplashScreen()
 
     onView(withId(R.id.rv_jokes_list_activity_main))
-        .check(matches(hasDescendant(withText("2"))))
+            .check(matches(hasDescendant(withText("2"))))
   }
 
   @Test
-  fun testRecyclerViewItemClickLaunchesDetailActivity() {
+  fun testRecyclerViewItemClickLaunchesDetailActivity() { // 2
 
-    waitForSplashScreen()
+    waitForSplashScreen() // 3
 
     onView(withId(R.id.rv_jokes_list_activity_main))
-        .perform(RecyclerViewActions.scrollToPosition<JokesListAdapter.ViewHolder>(2))
-        .perform(RecyclerViewActions.actionOnItemAtPosition<JokesListAdapter.ViewHolder>(2, click()))
+            .perform(RecyclerViewActions.scrollToPosition<JokesListAdapter.ViewHolder>(2))
+            .perform(RecyclerViewActions.actionOnItemAtPosition<JokesListAdapter.ViewHolder>(2, click()))
 
     assert(onView(ViewMatchers.withId(R.id.rv_jokes_list_activity_main)) == null)
   }
